@@ -25,20 +25,28 @@ class Home extends React.Component {
           <div className="sidebar-top">
             <p className="sidebar-top-text">Admin</p>
           </div>
-          <section>
+          <section className="side-menu">
             <SideMenu routes={Menus} collapsed={this.state.collapsed} />
           </section>
         </div>
         <div className="main-container">
-          <div>
-            <Button
-              type="primary"
-              onClick={this.toggleCollapsed}
-              style={{ marginBottom: 16 }}
-            >
-              <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
-            </Button>
-          </div>
+          <header className="main-header" id="main-header">
+            <div className="nav-bar">
+              <div className="toggle-nav-btn">
+                <Button type="primary" onClick={this.toggleCollapsed}>
+                  <Icon
+                    type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+                  />
+                </Button>
+              </div>
+              <div className="navbar-menu">
+                <div className="navbar-nav">
+                  <div>HElti</div>
+                  <div>LoginOut</div>
+                </div>
+              </div>
+            </div>
+          </header>
           <div className="main-content">content</div>
         </div>
       </div>

@@ -1,0 +1,35 @@
+ul,
+li {
+  list-style: none;
+}
+.main-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 140px;
+  z-index: 999;
+  transition: all .3s ease-in;
+}
+
+.nav-bar {
+  top: 0;
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  justify-content: space-between;
+  color: #4a4a4a;
+  box-shadow: 0 5px 10px -5px #efebeb;
+
+  .toggle-nav-btn {
+    padding-left: 15px;
+  }
+
+  .navbar-nav {
+    display: flex;
+    > div{
+      margin-right: 10px;
+    }
+  }
+}

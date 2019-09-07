@@ -33,7 +33,17 @@ const Menus = [
         ]
       }
     ]
-  }
+  },
+  {
+    key: '/order1',
+    title: '订单管理',
+    icon: 'mail',
+    subs: [
+      { key: '/order/list1', title: '订单列表', component: 'OrderList' },
+      { key: '/order/list11', title: '订单列表', component: 'OrderList' },
+      { key: '/order/list21', title: '订单列表', component: 'OrderList' }
+    ]
+  },
 ]
 
 export default Menus
