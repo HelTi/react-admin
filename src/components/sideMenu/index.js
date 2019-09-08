@@ -1,11 +1,14 @@
 import React from 'react'
 import { Menu, Icon } from 'antd'
+import { Link } from 'react-router-dom'
 const { SubMenu } = Menu
 
 const renderMenuItem = item => (
   <Menu.Item key={item.key}>
-    {item.icon && <Icon type={item.icon} />}
-    <span>{item.title}</span>
+    <Link to={item.key}>
+      {item.icon && <Icon type={item.icon} />}
+      <span>{item.title}</span>
+    </Link>
   </Menu.Item>
 )
 

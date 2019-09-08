@@ -1,6 +1,6 @@
 const Menus = [
   {
-    key: '/home',
+    key: '/',
     title: '首页',
     icon: 'mail',
     component: 'Home'
