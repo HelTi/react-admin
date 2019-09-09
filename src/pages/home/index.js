@@ -1,11 +1,10 @@
 import React from 'react'
 import './index.scss'
 import { Button, Icon } from 'antd'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import SideMenu from '../../components/sideMenu'
 import Menus from '../../routes/routes'
-import HomeIndex from '../home/home'
-import OrderList from '../order/orderList'
+import CustomRouterView from '../../routes/CustomRouterView'
 
 class Home extends React.Component {
   constructor(props) {
@@ -52,11 +51,7 @@ class Home extends React.Component {
               </div>
             </header>
             <div className="main-content">
-              <Switch>
-                <Route exact path="/" component={HomeIndex}></Route>
-                <Route path="/order/list" component={OrderList}></Route>
-                <Route render={() => <div>404</div>} />
-              </Switch>
+              <CustomRouterView />
             </div>
           </div>
         </div>
