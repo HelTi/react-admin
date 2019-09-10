@@ -3,8 +3,8 @@ import './index.scss'
 import { Button, Icon } from 'antd'
 import { BrowserRouter as Router } from 'react-router-dom'
 import SideMenu from '../../components/sideMenu'
-import Menus from '../../routes/routes'
-import CustomRouterView from '../../routes/CustomRouterView'
+import Menus from '../../router/routes'
+import CustomRouterView from '../../router/CustomRouterView'
 
 class Home extends React.Component {
   constructor(props) {
