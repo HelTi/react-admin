@@ -2,15 +2,15 @@ import React from 'react'
 import { Button, Icon } from 'antd'
 
 class NavHeader extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
   render() {
     return (
-      <header className="main-header" id="main-header" style={{
-        left: this.props.collapsed ? 80 : 256
-      }}>
+      <header
+        className="main-header"
+        id="main-header"
+        style={{
+          left: this.props.collapsed ? 80 : 256
+        }}
+      >
         <div className="nav-bar">
           <div className="toggle-nav-btn">
             <Button onClick={this.props.toggleCollapsed}>

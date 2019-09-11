@@ -1,6 +1,6 @@
 import React from 'react'
 import { Menu, Icon } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 const { SubMenu } = Menu
 
 const renderMenuItem = item => (
@@ -35,22 +35,34 @@ const renderSubMenu = item => (
 )
 
 class SideMenu extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
+  static getDerivedStateFromProps(props, state) {
+    const { location } = props
+    const pathname = location.pathname
+    const splicePath = pathname.substr(0, pathname.lastIndexOf('/'))
+    const openKeys = splicePath === '' ? null : [splicePath]
+
+    return {
+      selectedKeys: [pathname],
+      openKeys: openKeys
+    }
+  }
+  state = {
+    selectedKeys: [],
+    openKeys: null
   }
   handleClick = e => {
     console.log('click ', e)
   }
 
   render() {
+    console.log('state', this.state)
     const { routes } = this.props
     const collapsed = this.props.collapsed
     return (
       <Menu
         onClick={this.handleClick}
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
+        defaultSelectedKeys={this.state.selectedKeys}
+        defaultOpenKeys={this.state.openKeys}
         mode="inline"
         inlineCollapsed={collapsed}
       >
@@ -62,4 +74,4 @@ class SideMenu extends React.Component {
   }
 }
 
-export default SideMenu
+export default withRouter(SideMenu)
