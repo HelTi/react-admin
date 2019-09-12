@@ -6,6 +6,7 @@ const Menus = [
     key: '/home',
     title: '首页',
     icon: 'appstore',
+    exact: true,
     component: Home
   },
   {
@@ -16,6 +17,16 @@ const Menus = [
       { key: '/home/order/list', title: '订单列表', component: OrderList },
       { key: '/home/order/list1', title: '订单列表', component: OrderList },
       { key: '/home/order/list2', title: '订单列表', component: OrderList }
+    ]
+  },
+  {
+    title: '数据报表',
+    key: '/home/data',
+    icon: 'shopping',
+    subs: [
+      { key: '/home/data/list', title: '订单列表', component: OrderList },
+      { key: '/home/data/list1', title: '订单列表', component: OrderList },
+      { key: '/home/data/list2', title: '订单列表', component: OrderList }
     ]
   }
 ]

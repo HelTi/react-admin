@@ -1,8 +1,20 @@
 import React from 'react'
-import { Button, Icon } from 'antd'
+import { withRouter } from 'react-router-dom'
+import { Button, Icon, Popover, Avatar } from 'antd'
 
 class NavHeader extends React.Component {
+  loginOut = () => {
+    const { history } = this.props
+    localStorage.removeItem('ant_token')
+    history.push('/login')
+  }
   render() {
+    const content = (
+      <div>
+        <p>Content</p>
+        <p>Content</p>
+      </div>
+    )
     return (
       <header
         className="main-header"
@@ -13,14 +25,25 @@ class NavHeader extends React.Component {
       >
         <div className="nav-bar">
           <div className="toggle-nav-btn">
-            <Button onClick={this.props.toggleCollapsed}>
+            <Button type='link' onClick={this.props.toggleCollapsed}>
               <Icon type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'} />
             </Button>
           </div>
           <div className="navbar-menu">
             <div className="navbar-nav">
               <div>HElti</div>
-              <div>LoginOut</div>
+              <div>
+                <Button
+                  type="link"
+                  onClick={this.loginOut}
+                  icon="logout"
+                ></Button>
+              </div>
+              <div>
+                <Popover placement="bottom" content={content} trigger="click">
+                  <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                </Popover>
+              </div>
             </div>
           </div>
         </div>
@@ -29,4 +52,4 @@ class NavHeader extends React.Component {
   }
 }
 
-export default NavHeader
+export default withRouter(NavHeader)

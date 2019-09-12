@@ -2,13 +2,14 @@ ul,
 li {
   list-style: none;
 }
+
 .main-header {
   position: fixed;
   top: 0;
   right: 0;
   left: 140px;
   z-index: 999;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .nav-bar {
@@ -21,6 +22,7 @@ li {
   justify-content: space-between;
   color: #4a4a4a;
   box-shadow: 0 5px 10px -5px #efebeb;
+  padding-right: 20px;
 
   .toggle-nav-btn {
     padding-left: 15px;
@@ -28,7 +30,8 @@ li {
 
   .navbar-nav {
     display: flex;
-    > div{
+    align-items: center;
+    > div {
       margin-right: 10px;
     }
   }

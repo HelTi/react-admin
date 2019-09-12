@@ -1,10 +1,8 @@
 import React from 'react'
 import './home/index.scss'
-
-import { BrowserRouter as Router } from 'react-router-dom'
 import SideMenu from '../components/sideMenu'
 import NavHeader from '../components/navHeader'
-import Menus from '../router/routes'
+import Menus from '../api/menus'
 import CustomRouterView from '../router/CustomRouterView'
 
 class Home extends React.Component {
@@ -23,7 +21,6 @@ class Home extends React.Component {
 
   render() {
     return (
-      <Router>
         <div className="home-wrapper">
           <div
             style={{
@@ -49,7 +46,6 @@ class Home extends React.Component {
             </div>
           </div>
         </div>
-      </Router>
     )
   }
 }
