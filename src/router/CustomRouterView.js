@@ -3,6 +3,7 @@ import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
 import routes from './routes'
+import NotFindPage from '../pages/404'
 
 const renderRoute = r => {
   console.log('r', r)
@@ -39,6 +40,7 @@ class CustomRouterView extends React.Component {
               ? renderRoute(route)
               : route.subs.map(r => renderRoute(r))
           )}
+          <Route component = {NotFindPage}/>
         </Switch>
       </div>
     )

@@ -1,6 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { Button, Icon, Popover, Avatar } from 'antd'
+import './navHeader.scss'
 
 class NavHeader extends React.Component {
   loginOut = () => {
