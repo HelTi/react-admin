@@ -26,6 +26,14 @@ const Menus = [
       { key: '/home/data/list1', title: '订单列表' },
       { key: '/home/data/list2', title: '订单列表' }
     ]
+  },
+  {
+    title: '小应用',
+    key: '/home/app',
+    icon: 'shopping',
+    subs: [
+      { key: '/home/app/todo', title: 'TodoApp' }
+    ]
   }
 ]
 

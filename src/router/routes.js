@@ -1,5 +1,6 @@
 import Home from '../pages/home/index'
 import OrderList from '../pages/order/orderList'
+import TodoApp from '../pages/todo-app/index'
 
 const Menus = [
   {
@@ -27,6 +28,14 @@ const Menus = [
       { key: '/home/data/list', title: '订单列表', component: OrderList },
       { key: '/home/data/list1', title: '订单列表', component: OrderList },
       { key: '/home/data/list2', title: '订单列表', component: OrderList }
+    ]
+  },
+  {
+    title: '小应用',
+    key: '/home/app',
+    icon: 'shopping',
+    subs: [
+      { key: '/home/app/todo', title: 'TodoApp', component: TodoApp }
     ]
   }
 ]
