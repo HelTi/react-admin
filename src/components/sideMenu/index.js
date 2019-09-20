@@ -35,17 +35,21 @@ const renderSubMenu = item => (
 )
 
 class SideMenu extends React.Component {
-  static getDerivedStateFromProps(props, state) {
+  constructor(props) {
+    super(props)
     const { location } = props
     const pathname = location.pathname
     const splicePath = pathname.substr(0, pathname.lastIndexOf('/'))
     const openKeys = splicePath === '' ? null : [splicePath]
 
-    return {
+    this.state = {
       selectedKeys: [pathname],
-      openKeys: openKeys
+      openKeys: openKeys,
+      defaultSelectedKeys: [pathname],
+      defaultOpenKeys: openKeys
     }
   }
+
   state = {
     selectedKeys: [],
     openKeys: null
@@ -54,15 +58,43 @@ class SideMenu extends React.Component {
     console.log('click ', e)
   }
 
+  onOpenChange = openKeys => {
+    const uniqueOpened = !!this.props.uniqueOpend
+    if (uniqueOpened) {
+      if (openKeys.length === 0) {
+        this.setState({
+          openKeys: []
+        })
+        return
+      } else {
+        const latestOpenKeys = openKeys[openKeys.length - 1]
+        if (latestOpenKeys === openKeys[0]) {
+          this.setState({
+            openKeys
+          })
+        } else {
+          this.setState({
+            openKeys: [latestOpenKeys]
+          })
+        }
+      }
+    } else {
+      this.setState({
+        openKeys: openKeys
+      })
+    }
+  }
+
   render() {
-    console.log('state', this.state)
     const { routes } = this.props
     const collapsed = this.props.collapsed
     return (
       <Menu
         onClick={this.handleClick}
-        defaultSelectedKeys={this.state.selectedKeys}
-        defaultOpenKeys={this.state.openKeys}
+        onOpenChange={this.onOpenChange}
+        defaultSelectedKeys={this.state.defaultSelectedKeys}
+        defaultOpenKeys={this.state.defaultOpenKeys}
+        openKeys={collapsed ? [] : this.state.openKeys}
         mode="inline"
         inlineCollapsed={collapsed}
       >

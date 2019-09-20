@@ -6,7 +6,6 @@ import routes from './routes'
 import NotFindPage from '../pages/404'
 
 const renderRoute = r => {
-  console.log('r', r)
   // 是否登录
   const isLogin = localStorage.getItem('ant_token')
   return (
