@@ -1,6 +1,7 @@
 import React from 'react'
 import './login.scss'
 import { Form, Icon, Input, Button,message } from 'antd'
+import Ajax from '../utils/ajax'
 
 class Login extends React.Component {
   handleSubmit = e => {
@@ -14,6 +15,13 @@ class Login extends React.Component {
         history.push('/home')
       }
     })
+  }
+
+  componentDidMount(){
+    Ajax({
+      a:11
+    })
+    Ajax.get()
   }
 
   render() {
