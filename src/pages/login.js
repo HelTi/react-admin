@@ -1,28 +1,22 @@
 import React from 'react'
 import './login.scss'
-import { Form, Icon, Input, Button,message } from 'antd'
-import Ajax from '../utils/ajax'
+import { Form, Icon, Input, Button, message } from 'antd'
 
 class Login extends React.Component {
   handleSubmit = e => {
     e.preventDefault()
     console.log('login-page', this.props)
-    const {history} = this.props
+    const { history } = this.props
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        localStorage.setItem('ant_token','ant_token')
-        message.success('登录成功！');
+        localStorage.setItem('ant_token', 'ant_token')
+        message.success('登录成功！')
         history.push('/home')
       }
     })
   }
 
-  componentDidMount(){
-    Ajax({
-      a:11
-    })
-    Ajax.get()
-  }
+  componentDidMount() {}
 
   render() {
     const { getFieldDecorator } = this.props.form
@@ -32,9 +26,7 @@ class Login extends React.Component {
           <Form onSubmit={this.handleSubmit} className="login-form">
             <Form.Item>
               {getFieldDecorator('username', {
-                rules: [
-                  { required: true, message: '请输入用户名!' }
-                ]
+                rules: [{ required: true, message: '请输入用户名!' }]
               })(
                 <Input
                   prefix={
@@ -46,9 +38,7 @@ class Login extends React.Component {
             </Form.Item>
             <Form.Item>
               {getFieldDecorator('password', {
-                rules: [
-                  { required: true, message: '请输入密码!' }
-                ]
+                rules: [{ required: true, message: '请输入密码!' }]
               })(
                 <Input
                   prefix={

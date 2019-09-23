@@ -44,18 +44,14 @@ class SideMenu extends React.Component {
 
     this.state = {
       selectedKeys: [pathname],
-      openKeys: openKeys,
-      defaultSelectedKeys: [pathname],
-      defaultOpenKeys: openKeys
+      openKeys: openKeys
     }
   }
 
-  state = {
-    selectedKeys: [],
-    openKeys: null
-  }
   handleClick = e => {
-    console.log('click ', e)
+    this.setState({
+      selectedKeys: [e.key]
+    })
   }
 
   onOpenChange = openKeys => {
@@ -92,9 +88,8 @@ class SideMenu extends React.Component {
       <Menu
         onClick={this.handleClick}
         onOpenChange={this.onOpenChange}
-        defaultSelectedKeys={this.state.defaultSelectedKeys}
-        defaultOpenKeys={this.state.defaultOpenKeys}
-        openKeys={collapsed ? [] : this.state.openKeys}
+        selectedKeys={this.state.selectedKeys}
+        openKeys={this.state.openKeys}
         mode="inline"
         inlineCollapsed={collapsed}
       >

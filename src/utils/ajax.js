@@ -1,26 +1,33 @@
+import axiosInstance from './axiosInstance'
 class AjaxClass {
-  constructor(config) {
+  constructor(url, data, config) {
+    this.url = url
+    this.data = data
     this.config = config
-    this.initAxios()
-  }
-  initAxios() {
-    console.log(this.config)
-  }
-  static get() {
-    console.log('get', this)
   }
 
-  static post() {
-    console.log('post', this)
+  initAxios() {
+    return axiosInstance(this.url, this.data, this.config)
+  }
+
+  static get(url = '', data = {}, config = {}) {
+    config = Object.assign(config, {
+      method: 'get'
+    })
+
+    return axiosInstance(url, data, config)
+  }
+
+  static post(url = '', data = {}, config = {}) {
+    config = Object.assign(config, {
+      method: 'post'
+    })
+    return axiosInstance(url, data, config)
   }
 }
 
-function Ajax(config) {
-  if (!(this instanceof Ajax)) {
-    return new AjaxClass(config)
-  } else {
-    return this
-  }
+function Ajax(url = '', data = {}, config = {}) {
+  return new AjaxClass(url, data, config).initAxios()
 }
 
 Ajax.get = AjaxClass.get
