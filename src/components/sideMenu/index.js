@@ -35,48 +35,58 @@ const renderSubMenu = item => (
 )
 
 class SideMenu extends React.Component {
-  constructor(props) {
-    super(props)
-    const { location } = props
-    const pathname = location.pathname
-    const splicePath = pathname.substr(0, pathname.lastIndexOf('/'))
-    const openKeys = splicePath === '' ? null : [splicePath]
+  static getDerivedStateFromProps(props, state) {
+    if (props.collapsed !== state.collapsed) {
+      const state1 = SideMenu.setMenuOpen(props)
+      const state2 = SideMenu.onCollapse(props.collapsed)
+      return {
+        ...state1,
+        ...state2,
+        firstHide: state.collapsed !== props.collapsed && props.collapsed, // 两个不等时赋值props属性值否则为false
+        openKey: state.openKey || (!props.collapsed && state1.openKey)
+      }
+    }
+    return null
+  }
 
-    this.state = {
-      selectedKeys: [pathname],
-      openKeys: openKeys
+  static setMenuOpen = props => {
+    const { pathname } = props.location
+    return {
+      openKey: pathname.substr(0, pathname.lastIndexOf('/')),
+      selectedKey: pathname
+    }
+  }
+  static onCollapse = collapsed => {
+    return {
+      collapsed,
+      mode: collapsed ? 'vertical' : 'inline'
     }
   }
 
-  handleClick = e => {
+  state = {
+    mode: 'inline',
+    openKey: '',
+    selectedKey: '',
+    firstHide: true // 点击收缩菜单，第一次隐藏展开子菜单，openMenu时恢复
+  }
+  menuClick = e => {
     this.setState({
-      selectedKeys: [e.key]
+      selectedKey: e.key
     })
   }
 
-  onOpenChange = openKeys => {
+  componentDidMount() {
+    // this.setMenuOpen(this.props);
+    const state = SideMenu.setMenuOpen(this.props)
+    this.setState(state)
+  }
+
+  onOpenChange = v => {
     const uniqueOpened = !!this.props.uniqueOpend
     if (uniqueOpened) {
-      if (openKeys.length === 0) {
-        this.setState({
-          openKeys: []
-        })
-        return
-      } else {
-        const latestOpenKeys = openKeys[openKeys.length - 1]
-        if (latestOpenKeys === openKeys[0]) {
-          this.setState({
-            openKeys
-          })
-        } else {
-          this.setState({
-            openKeys: [latestOpenKeys]
-          })
-        }
-      }
-    } else {
       this.setState({
-        openKeys: openKeys
+        openKey: v[v.length - 1],
+        firstHide: false
       })
     }
   }
@@ -84,14 +94,16 @@ class SideMenu extends React.Component {
   render() {
     const { routes } = this.props
     const collapsed = this.props.collapsed
+    const { selectedKey, openKey, firstHide } = this.state
     return (
       <Menu
-        onClick={this.handleClick}
-        onOpenChange={this.onOpenChange}
-        selectedKeys={this.state.selectedKeys}
-        openKeys={this.state.openKeys}
-        mode="inline"
         inlineCollapsed={collapsed}
+        menus={routes.menus}
+        onClick={this.menuClick}
+        mode="inline"
+        selectedKeys={[selectedKey]}
+        openKeys={firstHide ? null : [openKey]}
+        onOpenChange={this.onOpenChange}
       >
         {routes.map(route =>
           route.subs ? renderSubMenu(route) : renderMenuItem(route)
