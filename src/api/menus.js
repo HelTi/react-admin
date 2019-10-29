@@ -3,38 +3,43 @@
  */
 const Menus = [
   {
-    key: '/home',
-    title: '首页',
-    icon: 'appstore'
+    key: "/home",
+    title: "工作看板",
+    icon: "dashboard"
   },
   {
-    title: '订单管理',
-    key: '/home/order',
-    icon: 'shopping',
+    title: "商品管理",
+    key: "/home/product",
+    icon: "shopping",
     subs: [
-      { key: '/home/order/list', title: '订单列表' },
-      { key: '/home/order/list1', title: '订单列表' },
-      { key: '/home/order/list2', title: '订单列表' }
+      { key: "/home/product/list", title: "商品列表" },
+      { key: "/home/product/category", title: "商品分类" }
     ]
   },
   {
-    title: '数据报表',
-    key: '/home/data',
-    icon: 'shopping',
+    title: "订单管理",
+    key: "/home/order",
+    icon: "profile",
     subs: [
-      { key: '/home/data/list', title: '订单列表' },
-      { key: '/home/data/list1', title: '订单列表' },
-      { key: '/home/data/list2', title: '订单列表' }
+      { key: "/home/order/list", title: "订单列表" },
+      { key: "/home/order/report", title: "订单报表" }
     ]
   },
   {
-    title: '小应用',
-    key: '/home/app',
-    icon: 'shopping',
+    title: "数据图表",
+    key: "/home/data",
+    icon: "bar-chart",
     subs: [
-      { key: '/home/app/todo', title: 'TodoApp' }
+      { key: "/home/data/g2", title: "G2图表" },
+      { key: "/home/data/chartjs", title: "chartjs" }
     ]
+  },
+  {
+    title: "SSO应用",
+    key: "/home/sso",
+    icon: "appstore",
+    subs: [{ key: "/home/sso/application", title: "应用管理" }]
   }
-]
+];
 
-export default Menus
+export default Menus;

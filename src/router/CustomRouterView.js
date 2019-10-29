@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect } from "react-router-dom";
 
-import routes from './routes'
-import NotFindPage from '../pages/404'
+import routes from "./routes";
+import NotFindPage from "../pages/404";
 
 const renderRoute = r => {
   // 是否登录
-  const isLogin = localStorage.getItem('ant_token')
+  const isLogin = localStorage.getItem("ant_token");
   return (
     <Route
       exact={r.exact}
@@ -19,7 +19,7 @@ const renderRoute = r => {
         ) : (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: "/login",
               state: { from: props.location }
             }}
             push
@@ -27,8 +27,8 @@ const renderRoute = r => {
         )
       }
     />
-  )
-}
+  );
+};
 class CustomRouterView extends React.Component {
   render() {
     return (
@@ -39,11 +39,11 @@ class CustomRouterView extends React.Component {
               ? renderRoute(route)
               : route.subs.map(r => renderRoute(r))
           )}
-          <Route component = {NotFindPage}/>
+          <Route component={NotFindPage} />
         </Switch>
       </div>
-    )
+    );
   }
 }
 
-export default CustomRouterView
+export default CustomRouterView;
