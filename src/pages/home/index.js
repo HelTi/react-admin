@@ -8,7 +8,7 @@ class Home extends React.Component {
     return (
       <div>
         <Row>
-          <Col sm={24} md={6}>
+          <Col className="admin-col-padding" sm={24} md={6}>
             <SmallCard
               content={
                 <div>
@@ -26,7 +26,7 @@ class Home extends React.Component {
             />
           </Col>
 
-          <Col sm={24} md={6}>
+          <Col className="admin-col-padding" sm={24} md={6}>
             <SmallCard
               content={
                 <div>
@@ -44,7 +44,7 @@ class Home extends React.Component {
             />
           </Col>
 
-          <Col sm={24} md={6}>
+          <Col className="admin-col-padding" sm={24} md={6}>
             <SmallCard
               content={
                 <div>
@@ -56,7 +56,7 @@ class Home extends React.Component {
             />
           </Col>
 
-          <Col sm={24} md={6}>
+          <Col className="admin-col-padding" sm={24} md={6}>
             <SmallCard
               content={
                 <div>

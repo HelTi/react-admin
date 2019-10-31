@@ -8,24 +8,6 @@ const Menus = [
     icon: "dashboard"
   },
   {
-    title: "商品管理",
-    key: "/home/product",
-    icon: "shopping",
-    subs: [
-      { key: "/home/product/list", title: "商品列表" },
-      { key: "/home/product/category", title: "商品分类" }
-    ]
-  },
-  {
-    title: "订单管理",
-    key: "/home/order",
-    icon: "profile",
-    subs: [
-      { key: "/home/order/list", title: "订单列表" },
-      { key: "/home/order/report", title: "订单报表" }
-    ]
-  },
-  {
     title: "数据图表",
     key: "/home/data",
     icon: "bar-chart",
@@ -35,7 +17,7 @@ const Menus = [
     ]
   },
   {
-    title: "SSO应用",
+    title: "应用卡片",
     key: "/home/sso",
     icon: "appstore",
     subs: [{ key: "/home/sso/application", title: "应用管理" }]

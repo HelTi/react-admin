@@ -35,7 +35,7 @@ class Application extends React.Component {
     return (
       <div>
         <Row>
-          <Col>
+          <Col className="admin-col-padding">
             <Card>
               <Form layout="inline" onSubmit={this.handleSubmit}>
                 <Form.Item>
@@ -76,7 +76,7 @@ class Application extends React.Component {
         </Row>
         <Row>
           {this.state.applicationList.map(item => (
-            <Col key={item.id} span={6}>
+            <Col className="admin-col-padding" key={item.id} span={6}>
               <Card
                 bordered={false}
                 hoverable

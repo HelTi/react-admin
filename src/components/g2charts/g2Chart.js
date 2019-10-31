@@ -10,15 +10,15 @@ class G2Chart extends React.Component {
     return (
       <div>
         <Row>
-          <Col id="h-chart1" className="card-padding" span={24}>
+          <Col className="admin-col-padding" span={24}>
             <Series1 />
           </Col>
         </Row>
         <Row>
-          <Col sm={24} md={12} id="h-chart2" className="card-padding">
+          <Col sm={24} md={12} id="h-chart2" className="admin-col-padding">
             <Stackedcolumn />
           </Col>
-          <Col sm={24} md={12} id="h-chart3" className="card-padding">
+          <Col sm={24} md={12} id="h-chart3" className="admin-col-padding">
             <Stacked />
           </Col>
         </Row>

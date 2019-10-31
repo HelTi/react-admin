@@ -41,7 +41,7 @@ class Stackedcolumn extends React.Component {
       value: "月均降雨量" // value字段
     });
     return (
-      <Card title="降水统计">
+      <Card title="降水统计" bordered={false}>
         <Chart height={300} data={dv} forceFit>
           <Legend />
           <Axis name="月份" />

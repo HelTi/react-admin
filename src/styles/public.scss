@@ -2,18 +2,12 @@
   background-color: #ffffff;
 }
 
-.card-padding,
-.ant-col {
+.admin-col-padding {
   padding: 12px;
 }
 
-.ignore-cutom-css {
-  .ant-col {
-    padding-left: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-top: 0;
-  }
+.admin-card-padding {
+  padding: 12px;
 }
 
 .ul-li-style-none {
