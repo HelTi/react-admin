@@ -1,8 +1,13 @@
 import React from "react";
+import Menus from "../../api/menus";
 import { connect } from "react-redux";
 import { Menu, Icon } from "antd";
 import { Link, withRouter } from "react-router-dom";
 const { SubMenu } = Menu;
+
+const rootSubmenuKeys = Menus.reduce((subKeys, menu) => {
+  return subKeys.concat(menu.subs && menu.key).filter(Boolean);
+}, []);
 
 const renderMenuItem = item => (
   <Menu.Item key={item.key}>
@@ -13,29 +18,31 @@ const renderMenuItem = item => (
   </Menu.Item>
 );
 
-const renderMenuItemGroup = item => (
-  <Menu.ItemGroup key={item.key} title={item.title}>
-    {item.subs.map(sub => renderMenuItem(sub))}
-  </Menu.ItemGroup>
-);
+// const renderMenuItemGroup = item => (
+//   <Menu.ItemGroup key={item.key} title={item.title}>
+//     {item.subs.map(sub => renderMenuItem(sub))}
+//   </Menu.ItemGroup>
+// )
 
 const renderSubMenu = item => (
   <SubMenu
     key={item.key}
     title={
       <span>
-        <Icon type={item.icon} />
+        {item.icon && <Icon type={item.icon} />}
         <span>{item.title}</span>
       </span>
     }
   >
     {item.subs.map(item =>
-      item.subs ? renderMenuItemGroup(item) : renderMenuItem(item)
+      item.subs ? renderSubMenu(item) : renderMenuItem(item)
     )}
   </SubMenu>
 );
 
 class SideMenu extends React.Component {
+  rootSubmenuKeys = rootSubmenuKeys;
+
   static getDerivedStateFromProps(props, state) {
     if (props.collapsed !== state.collapsed) {
       const state1 = SideMenu.setMenuOpen(props);
@@ -44,7 +51,7 @@ class SideMenu extends React.Component {
         ...state1,
         ...state2,
         firstHide: state.collapsed !== props.collapsed && props.collapsed, // 两个不等时赋值props属性值否则为false
-        openKey: state.openKey || (!props.collapsed && state1.openKey)
+        openKey: [state.openKey] || (!props.collapsed && [state1.openKey])
       };
     }
     return null;
@@ -53,7 +60,7 @@ class SideMenu extends React.Component {
   static setMenuOpen = props => {
     const { pathname } = props.location;
     return {
-      openKey: pathname.substr(0, pathname.lastIndexOf("/")),
+      openKey: [pathname.substr(0, pathname.lastIndexOf("/"))],
       selectedKey: pathname
     };
   };
@@ -67,7 +74,7 @@ class SideMenu extends React.Component {
 
   state = {
     mode: "inline",
-    openKey: "",
+    openKey: [],
     selectedKey: "",
     firstHide: true // 点击收缩菜单，第一次隐藏展开子菜单，openMenu时恢复
   };
@@ -83,16 +90,19 @@ class SideMenu extends React.Component {
     this.setState(state);
   }
 
-  onOpenChange = v => {
-    const uniqueOpened = !!this.props.uniqueOpend;
-    if (uniqueOpened) {
+  onOpenChange = openKeys => {
+    const latestOpenKey = openKeys.find(
+      key => this.state.openKey.indexOf(key) === -1
+    );
+    if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
       this.setState({
-        openKey: v[v.length - 1],
+        openKey: openKeys,
         firstHide: false
       });
     } else {
       this.setState({
-        openKeys: v
+        openKey: latestOpenKey ? [latestOpenKey] : [],
+        firstHide: false
       });
     }
   };
@@ -109,7 +119,7 @@ class SideMenu extends React.Component {
         onClick={this.menuClick}
         mode="inline"
         selectedKeys={[selectedKey]}
-        openKeys={firstHide ? null : [openKey]}
+        openKeys={firstHide ? null : openKey}
         onOpenChange={this.onOpenChange}
       >
         {routes.map(route =>

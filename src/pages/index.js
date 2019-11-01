@@ -7,6 +7,7 @@ import SideMenu from "../components/sideMenu";
 import NavHeader from "../components/navHeader";
 import Menus from "../api/menus";
 import ContentFooter from "../components/content-footer";
+import ContentBreadCrumb from "../components/content-breadcrumb";
 import CustomRouterView from "../router/CustomRouterView";
 import moment from "moment";
 import "moment/locale/zh-cn";
@@ -65,6 +66,7 @@ class Home extends React.Component {
               toggleCollapsed={this.toggleCollapsed}
             />
             <div className="main-content">
+              <ContentBreadCrumb />
               <CustomRouterView />
               <ContentFooter />
             </div>

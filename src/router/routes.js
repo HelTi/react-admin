@@ -1,9 +1,8 @@
 import Home from "../pages/home/index";
-import OrderList from "../pages/order/orderList";
 
 import G2Chart from "../components/g2charts/g2Chart";
 import ChartJs from "../components/chart-js/ChartJs";
-import SsoApplication from "../pages/sso/application";
+import Application from "../pages/sso/application";
 
 const Menus = [
   {
@@ -17,18 +16,17 @@ const Menus = [
     key: "/home/data",
     subs: [
       { key: "/home/data/g2", name: "G2图表", component: G2Chart },
-      { key: "/home/data/chartjs", name: "chartjs图表", component: ChartJs },
-      { key: "/home/data/list2", name: "订单列表", component: OrderList }
+      { key: "/home/data/chartjs", name: "chartjs图表", component: ChartJs }
     ]
   },
   {
     title: "应用卡片",
-    key: "/home/sso",
+    key: "/home/app",
     subs: [
       {
-        key: "/home/sso/application",
-        name: "sso_application",
-        component: SsoApplication
+        key: "/home/app/list",
+        name: "application_list",
+        component: Application
       }
     ]
   }

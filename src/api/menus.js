@@ -17,10 +17,20 @@ const Menus = [
     ]
   },
   {
-    title: "应用卡片",
-    key: "/home/sso",
+    title: "应用管理",
+    key: "/home/app",
     icon: "appstore",
-    subs: [{ key: "/home/sso/application", title: "应用管理" }]
+    subs: [
+      { key: "/home/app/list", title: "应用列表" },
+      {
+        key: "/home/app/list1",
+        title: "应用服务",
+        subs: [
+          { key: "/home/app/list1/g2", title: "G2图表" },
+          { key: "/home/app/list1/chartjs", title: "chartjs" }
+        ]
+      }
+    ]
   }
 ];
 
