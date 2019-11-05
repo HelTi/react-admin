@@ -5,9 +5,19 @@ import { Menu, Icon } from "antd";
 import { Link, withRouter } from "react-router-dom";
 const { SubMenu } = Menu;
 
-const rootSubmenuKeys = Menus.reduce((subKeys, menu) => {
-  return subKeys.concat(menu.subs && menu.key).filter(Boolean);
-}, []);
+const getRootSubMenuKeys = menus => {
+  let result = [];
+  menus.forEach(menu => {
+    if (menu.key && menu.subs) {
+      result.push(menu.key);
+      menu.subs && (result = result.concat(getRootSubMenuKeys(menu.subs)));
+    }
+  });
+  return result;
+};
+
+const rootSubmenuKeys = getRootSubMenuKeys(Menus);
+console.log("rootSubmenuKeys", rootSubmenuKeys);
 
 const renderMenuItem = item => (
   <Menu.Item key={item.key}>
@@ -59,8 +69,19 @@ class SideMenu extends React.Component {
 
   static setMenuOpen = props => {
     const { pathname } = props.location;
+    let getOpenKeyFromPath = rootSubmenuKeys.filter(
+      key => pathname.indexOf(key) !== -1
+    );
+    console.log("checkOpenKey", getOpenKeyFromPath);
+    console.log(
+      "pathname",
+      pathname,
+      pathname.substr(0, pathname.lastIndexOf("/"))
+    );
     return {
-      openKey: [pathname.substr(0, pathname.lastIndexOf("/"))],
+      openKey: getOpenKeyFromPath
+        ? getOpenKeyFromPath
+        : [pathname.substr(0, pathname.lastIndexOf("/"))],
       selectedKey: pathname
     };
   };
@@ -91,20 +112,26 @@ class SideMenu extends React.Component {
   }
 
   onOpenChange = openKeys => {
-    const latestOpenKey = openKeys.find(
-      key => this.state.openKey.indexOf(key) === -1
-    );
-    if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-      this.setState({
-        openKey: openKeys,
-        firstHide: false
-      });
-    } else {
-      this.setState({
-        openKey: latestOpenKey ? [latestOpenKey] : [],
-        firstHide: false
-      });
-    }
+    console.log("openKeys", openKeys);
+    // const latestOpenKey = openKeys.find(
+    //   key => this.state.openKey.indexOf(key) === -1
+    // )
+
+    this.setState({
+      openKey: openKeys,
+      firstHide: false
+    });
+    // if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+    //   this.setState({
+    //     openKey: openKeys,
+    //     firstHide: false
+    //   })
+    // } else {
+    //   this.setState({
+    //     openKey: latestOpenKey ? [latestOpenKey] : [],
+    //     firstHide: false
+    //   })
+    // }
   };
 
   render() {
