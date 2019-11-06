@@ -5,6 +5,10 @@ import { Menu, Icon } from "antd";
 import { Link, withRouter } from "react-router-dom";
 const { SubMenu } = Menu;
 
+/**
+ *
+ * 浏览器刷新展开三级菜单
+ */
 const getRootSubMenuKeys = menus => {
   let result = [];
   menus.forEach(menu => {
@@ -16,8 +20,14 @@ const getRootSubMenuKeys = menus => {
   return result;
 };
 
+/**
+ *  点击三级菜单展开问题
+ */
+const rootLevel2MenuKeys = Menus.reduce((subKeys, menu) => {
+  return subKeys.concat(menu.subs && menu.key).filter(Boolean);
+}, []);
+
 const rootSubmenuKeys = getRootSubMenuKeys(Menus);
-console.log("rootSubmenuKeys", rootSubmenuKeys);
 
 const renderMenuItem = item => (
   <Menu.Item key={item.key}>
@@ -52,10 +62,18 @@ const renderSubMenu = item => (
 
 class SideMenu extends React.Component {
   rootSubmenuKeys = rootSubmenuKeys;
+  rootLevel2MenuKeys = rootLevel2MenuKeys;
+  state = {
+    mode: "inline",
+    openKey: [],
+    selectedKey: "",
+    firstHide: true // 点击收缩菜单，第一次隐藏展开子菜单，openMenu时恢复
+  };
 
   static getDerivedStateFromProps(props, state) {
     if (props.collapsed !== state.collapsed) {
       const state1 = SideMenu.setMenuOpen(props);
+      console.log("state1", state1);
       const state2 = SideMenu.onCollapse(props.collapsed);
       return {
         ...state1,
@@ -73,11 +91,7 @@ class SideMenu extends React.Component {
       key => pathname.indexOf(key) !== -1
     );
     console.log("checkOpenKey", getOpenKeyFromPath);
-    console.log(
-      "pathname",
-      pathname,
-      pathname.substr(0, pathname.lastIndexOf("/"))
-    );
+    console.log("pathname", pathname);
     return {
       openKey: getOpenKeyFromPath
         ? getOpenKeyFromPath
@@ -93,12 +107,6 @@ class SideMenu extends React.Component {
     };
   };
 
-  state = {
-    mode: "inline",
-    openKey: [],
-    selectedKey: "",
-    firstHide: true // 点击收缩菜单，第一次隐藏展开子菜单，openMenu时恢复
-  };
   menuClick = e => {
     this.setState({
       selectedKey: e.key
@@ -113,25 +121,21 @@ class SideMenu extends React.Component {
 
   onOpenChange = openKeys => {
     console.log("openKeys", openKeys);
-    // const latestOpenKey = openKeys.find(
-    //   key => this.state.openKey.indexOf(key) === -1
-    // )
+    const latestOpenKey = openKeys.find(
+      key => this.state.openKey.indexOf(key) === -1
+    );
 
-    this.setState({
-      openKey: openKeys,
-      firstHide: false
-    });
-    // if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-    //   this.setState({
-    //     openKey: openKeys,
-    //     firstHide: false
-    //   })
-    // } else {
-    //   this.setState({
-    //     openKey: latestOpenKey ? [latestOpenKey] : [],
-    //     firstHide: false
-    //   })
-    // }
+    if (this.rootLevel2MenuKeys.indexOf(latestOpenKey) === -1) {
+      this.setState({
+        openKey: openKeys,
+        firstHide: false
+      });
+    } else {
+      this.setState({
+        openKey: latestOpenKey ? [latestOpenKey] : [],
+        firstHide: false
+      });
+    }
   };
 
   render() {
